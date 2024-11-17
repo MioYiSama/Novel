@@ -1,0 +1,11 @@
+/.idea
+
+### Gradle ###
+/**/.gradle
+/**/build/
+
+### Kotlin ###
+/**/.kotlin
+
+### Mac OS ###
+/**/.DS_Store
