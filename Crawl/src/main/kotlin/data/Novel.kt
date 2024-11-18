@@ -1,14 +1,7 @@
 package top.mioyi.data
 
 import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
 import kotlin.io.path.*
-
-@OptIn(ExperimentalSerializationApi::class)
-private val json = Json {
-    prettyPrint = true
-    prettyPrintIndent = ' '.toString().repeat(2)
-}
 
 @Serializable
 data class Novel(
@@ -22,5 +15,5 @@ data class Novel(
     }
 
     fun saveToFile() =
-        Path("novels/${id}.json").writeText(json.encodeToString(this))
+        Path("novels/${id}.json").createParentDirectories().writeText(json.encodeToString(this))
 }

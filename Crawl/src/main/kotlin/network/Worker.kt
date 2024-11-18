@@ -6,10 +6,13 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.openqa.selenium.edge.*
 import org.openqa.selenium.support.ui.WebDriverWait
-import java.time.Duration
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.toJavaDuration
 
 class Worker : AutoCloseable {
+    private val driver = EdgeDriver(options)
+
     private val routes = Channel<String>(Channel.BUFFERED)
     private val documents = Channel<Document>(Channel.BUFFERED)
 
@@ -18,6 +21,14 @@ class Worker : AutoCloseable {
         for (route in routes) {
             documents.send(fetch(HOST + route))
             sleep()
+        }
+    }
+
+    init {
+        driver.get(HOST)
+
+        WebDriverWait(driver, (5).seconds.toJavaDuration()).until {
+            it.manage().getCookieNamed("cf_clearance") != null
         }
     }
 
@@ -30,61 +41,41 @@ class Worker : AutoCloseable {
         routes.close()
         documents.close()
         worker.cancelAndJoin()
-    }
-}
-
-private val HEADERS = mapOf(
-    "User-Agent" to USER_AGENT,
-    "Accept-Language" to "en-US"
-)
-
-private val COOKIES by lazy {
-    val options = EdgeOptions().apply {
-        addArguments(
-            "--user-agent=$USER_AGENT",
-            "--headless",
-            "--window-size=0x0",
-            "--log-level=3",
-            "--no-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-infobars",
-            "--disable-popup-blocking",
-            "--disable-web-security",
-            "--disable-prompt-on-repost",
-            "--disable-blink-features=AutomationControlled",
-            "--disable-gpu", // 禁用GPU
-            "--disable-extensions", // 禁用扩展
-            "--mute-audio", // 禁用音频
-            "--blink-settings=imagesEnabled=false", // 禁用图片
-        )
+        driver.close()
     }
 
-    val driver = EdgeDriver(options)
+    private fun fetch(url: String): Document {
+        println("Fetching: $url")
 
-    try {
-        driver.get(HOST)
+        driver.get(url)
 
-        WebDriverWait(driver, Duration.ofSeconds(5)).until {
-            it.manage().getCookieNamed("cf_clearance") != null
-        }
-
-        driver.manage().cookies.associate { it.name to it.value }
-    } finally {
-        driver.quit()
+        return Jsoup.parse(driver.pageSource!!)
     }
-}
-
-private fun fetch(url: String): Document {
-    println("Fetching: $url")
-
-    return Jsoup.connect(url)
-        .headers(HEADERS)
-        .cookies(COOKIES)
-        .get()
 }
 
 private suspend fun sleep() {
-    val delayDuration = Random.nextLong(1500L, 3500L)
+    val delayDuration = Random.nextLong(MIN_DELAY, MAX_DELAY)
     println("Delay for $delayDuration ms")
     delay(delayDuration)
+}
+
+private val options = EdgeOptions().apply {
+    addArguments(
+        "--user-agent=$USER_AGENT",
+        "--lang=en-US",
+        "--headless",
+        "--window-size=0x0",
+        "--log-level=3",
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-infobars",
+        "--disable-popup-blocking",
+        "--disable-web-security",
+        "--disable-prompt-on-repost",
+        "--disable-blink-features=AutomationControlled",
+        "--disable-gpu", // 禁用GPU
+        "--disable-extensions", // 禁用扩展
+        "--mute-audio", // 禁用音频
+        "--blink-settings=imagesEnabled=false", // 禁用图片
+    )
 }
