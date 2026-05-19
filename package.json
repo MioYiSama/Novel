@@ -1,0 +1,27 @@
+{
+  "name": "novel",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.ts"
+  },
+  "dependencies": {
+    "@effect/platform": "^0.96.1",
+    "@effect/platform-node": "^0.106.0",
+    "@effect/sql": "^0.51.1",
+    "@effect/sql-pg": "0.52.1",
+    "cloakbrowser": "^0.3.28",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "1.0.0-beta.22",
+    "effect": "3.21.2",
+    "mmdb-lib": "^3.0.2",
+    "pg": "^8.21.0",
+    "playwright-core": "^1.60.0"
+  },
+  "devDependencies": {
+    "@effect/language-service": "^0.86.1",
+    "@types/node": "^25.8.0",
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "1.0.0-beta.22",
+    "typescript": "^6.0.3"
+  }
+}
