@@ -163,9 +163,14 @@ export const fetchChapter = ({
                 case "img":
                   yield* Effect.promise(() => element.scrollIntoViewIfNeeded());
                   yield* Effect.sleep(300);
+
+                  let url = (yield* Effect.promise(() => element.getAttribute("src")))!;
+                  if (!url.startsWith("https:")) {
+                    url += "https:";
+                  }
                   return Option.some<ChapterContentElement>({
                     type: "image",
-                    url: (yield* Effect.promise(() => element.getAttribute("src")))!,
+                    url,
                   });
                 case "br":
                   return Option.some<ChapterContentElement>({ type: "newline" });

@@ -40,7 +40,14 @@ export const BrowserLive = Layer.effect(
 
               // Filter out unnecessary requests to speed up page loading
               await page.route("**/*", (route) => route.continue());
-              await filterRequests(page, ["document", "stylesheet", "script", "xhr", "fetch"]);
+              await filterRequests(page, [
+                "document",
+                "stylesheet",
+                "script",
+                "xhr",
+                "fetch",
+                "image",
+              ]);
 
               // Navigate to the specified URL
               await page.goto(url);

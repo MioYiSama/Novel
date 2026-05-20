@@ -2,23 +2,25 @@
   "name": "novel",
   "type": "module",
   "scripts": {
-    "start": "node src/index.ts",
+    "start": "node src/index-fetch.ts",
+    "start2": "node src/index2.ts",
     "prepare": "effect-tsgo patch"
   },
   "dependencies": {
     "@effect/platform-node": "4.0.0-beta.68",
     "@effect/sql-pg": "4.0.0-beta.68",
-    "cloakbrowser": "^0.3.28",
+    "cloakbrowser": "^0.3.29",
     "dotenv": "^17.4.2",
     "drizzle-orm": "1.0.0-rc.3",
     "effect": "4.0.0-beta.68",
     "mmdb-lib": "^3.0.2",
     "pg": "^8.21.0",
-    "playwright-core": "^1.60.0"
+    "playwright-core": "^1.60.0",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@effect/tsgo": "0.7.4",
-    "@types/node": "^25.8.0",
+    "@types/node": "^25.9.1",
     "@types/pg": "^8.20.0",
     "@typescript/native-preview": "7.0.0-dev.20260519.1",
     "drizzle-kit": "1.0.0-rc.3"

@@ -15,8 +15,8 @@ importers:
         specifier: 4.0.0-beta.68
         version: 4.0.0-beta.68(effect@4.0.0-beta.68)
       cloakbrowser:
-        specifier: ^0.3.28
-        version: 0.3.28(mmdb-lib@3.0.2)(playwright-core@1.60.0)
+        specifier: ^0.3.29
+        version: 0.3.29(mmdb-lib@3.0.2)(playwright-core@1.60.0)
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -35,12 +35,15 @@ importers:
       playwright-core:
         specifier: ^1.60.0
         version: 1.60.0
+      uuid:
+        specifier: ^14.0.0
+        version: 14.0.0
     devDependencies:
       '@effect/tsgo':
         specifier: 0.7.4
         version: 0.7.4
       '@types/node':
-        specifier: ^25.8.0
+        specifier: ^25.9.1
         version: 25.9.1
       '@types/pg':
         specifier: ^8.20.0
@@ -57,11 +60,11 @@ packages:
   '@drizzle-team/brocli@0.11.0':
     resolution: {integrity: sha512-hD3pekGiPg0WPCCGAZmusBBJsDqGUR66Y452YgQsZOnkdQ7ViEPKuyP4huUGEZQefp8g34RRodXYmJ2TbCH+tg==}
 
-  '@effect/platform-node-shared@4.0.0-beta.68':
-    resolution: {integrity: sha512-a6q/Rid2CQQBSoTIhBnT2oCozeaEvx5DXreSdT4jbvxPSC0j2l0EqcYdHgvEGDqvhocIAezgmSQbcHNcnyDg8w==}
+  '@effect/platform-node-shared@4.0.0-beta.69':
+    resolution: {integrity: sha512-0IXcDFvKroXrdRpL/KX6uI9OfbipOMtFnTywGIW+5RfcVVVm1MZs4/tDCUqMVndhw4lq5HOajk5m7/OCxBAQNg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      effect: ^4.0.0-beta.68
+      effect: ^4.0.0-beta.69
 
   '@effect/platform-node@4.0.0-beta.68':
     resolution: {integrity: sha512-q2WakGBfZ5wIg9WdL4flbIwxC5TNFq1/qroT4HRT9yOl19dLg0khd2LE9ewOybOPrTQHV3PUyV3Sx6Y3eMYTWQ==}
@@ -374,8 +377,8 @@ packages:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
     engines: {node: '>=18'}
 
-  cloakbrowser@0.3.28:
-    resolution: {integrity: sha512-33IeHiST1V2vbWbLmCFI/tykMsrd6zOwjgM1+669AclA2n0p4RTBLUk5WLUe5AuaTLcjfkE7uKdLi79H39XeAg==}
+  cloakbrowser@0.3.29:
+    resolution: {integrity: sha512-wk93tNstv8mtxZ/wtcWkkkLzpcyOiboj7xMOKZuBUhU+vq+GGkgWDp95y68Zckxu1Bmaf70OvPLZdMJF2wTGRA==}
     engines: {node: '>=20.0.0'}
     hasBin: true
     peerDependencies:
@@ -776,7 +779,7 @@ snapshots:
 
   '@drizzle-team/brocli@0.11.0': {}
 
-  '@effect/platform-node-shared@4.0.0-beta.68(effect@4.0.0-beta.68)':
+  '@effect/platform-node-shared@4.0.0-beta.69(effect@4.0.0-beta.68)':
     dependencies:
       '@types/ws': 8.18.1
       effect: 4.0.0-beta.68
@@ -787,7 +790,7 @@ snapshots:
 
   '@effect/platform-node@4.0.0-beta.68(effect@4.0.0-beta.68)(ioredis@5.10.1)':
     dependencies:
-      '@effect/platform-node-shared': 4.0.0-beta.68(effect@4.0.0-beta.68)
+      '@effect/platform-node-shared': 4.0.0-beta.69(effect@4.0.0-beta.68)
       effect: 4.0.0-beta.68
       ioredis: 5.10.1
       mime: 4.1.0
@@ -993,7 +996,7 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  cloakbrowser@0.3.28(mmdb-lib@3.0.2)(playwright-core@1.60.0):
+  cloakbrowser@0.3.29(mmdb-lib@3.0.2)(playwright-core@1.60.0):
     dependencies:
       tar: 7.5.15
     optionalDependencies:
