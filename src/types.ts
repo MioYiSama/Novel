@@ -9,7 +9,7 @@ export interface Volume {
   novelId: number;
   no: number;
   name: string;
-  cover: URL;
+  cover: string;
   chapters: Array<Chapter>;
 }
 

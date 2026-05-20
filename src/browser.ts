@@ -1,7 +1,7 @@
 import * as playwright from "playwright-core";
 import * as cloak from "cloakbrowser";
 import { Context, Effect, Layer, Scope } from "effect";
-import { sleepRandomlyFor } from "./util.ts";
+import { filterRequests } from "./util.ts";
 
 const DEVICE = playwright.devices["Pixel 7"];
 
@@ -45,7 +45,7 @@ export const BrowserLive = Layer.scoped(
               // Navigate to the specified URL
               await page.goto(url);
               return page;
-            }).pipe(Effect.tap(() => sleepRandomlyFor(2000, 5000))),
+            }),
             (page) => Effect.promise(() => page.close()),
           ),
       };
@@ -53,16 +53,3 @@ export const BrowserLive = Layer.scoped(
     ({ context }) => Effect.promise(() => context.close()),
   ),
 );
-
-async function filterRequests(page: playwright.Page, resTypes: string[]) {
-  return await page.route("**/*", async (route) => {
-    const resType = route.request().resourceType();
-
-    if (!resTypes.includes(resType)) {
-      await route.abort("blockedbyclient");
-      return;
-    }
-
-    await route.fallback();
-  });
-}
