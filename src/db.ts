@@ -6,10 +6,10 @@ import * as dotenv from "dotenv";
 
 const dbEffect = PgDrizzle.make({ relations }).pipe(Effect.provide(PgDrizzle.DefaultServices));
 
-export class DatabaseService extends Context.Tag("DatabaseService")<
+export class DatabaseService extends Context.Service<
   DatabaseService,
-  Effect.Effect.Success<typeof dbEffect>
->() {}
+  Effect.Success<typeof dbEffect>
+>()("DatabaseService") {}
 
 export const DatabaseLive = Layer.effect(DatabaseService, dbEffect);
 

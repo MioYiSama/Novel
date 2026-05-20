@@ -5,15 +5,15 @@ import { filterRequests } from "./util.ts";
 
 const DEVICE = playwright.devices["Pixel 7"];
 
-export class BrowserService extends Context.Tag("BrowserService")<
+export class BrowserService extends Context.Service<
   BrowserService,
   {
     readonly context: playwright.BrowserContext;
     readonly newPage: (url: string) => Effect.Effect<playwright.Page, never, Scope.Scope>;
   }
->() {}
+>()("BrowserService") {}
 
-export const BrowserLive = Layer.scoped(
+export const BrowserLive = Layer.effect(
   BrowserService,
   Effect.acquireRelease(
     Effect.promise(async () => {

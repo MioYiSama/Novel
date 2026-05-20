@@ -1,8 +1,7 @@
 import { Effect } from "effect";
-import { BrowserLive } from "./browser.ts";
-import { NodeContext, NodeRuntime } from "@effect/platform-node";
-import { FileSystem } from "@effect/platform";
+import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import { DatabaseLive, DatabaseService, PgClientLive } from "./db.ts";
+import { FileSystem } from "effect/FileSystem";
 
 const program = Effect.gen(function* () {
   const db = yield* DatabaseService;
@@ -17,14 +16,13 @@ const program = Effect.gen(function* () {
     },
   });
 
-  const fs = yield* FileSystem.FileSystem;
-  yield* fs.writeFileString("novel.json", JSON.stringify(novel));
+  const fs = yield* FileSystem;
+  yield* fs.writeFileString("novel.json", JSON.stringify(novel, null, 2));
 });
 
 NodeRuntime.runMain(
   program
-    .pipe(Effect.provide(BrowserLive))
-    .pipe(Effect.provide(NodeContext.layer))
     .pipe(Effect.provide(DatabaseLive))
-    .pipe(Effect.provide(PgClientLive)),
+    .pipe(Effect.provide(PgClientLive))
+    .pipe(Effect.provide(NodeFileSystem.layer)),
 );

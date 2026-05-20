@@ -1,6 +1,6 @@
 import { Effect } from "effect";
 import { BrowserLive } from "./browser.ts";
-import { NodeContext, NodeRuntime } from "@effect/platform-node";
+import { NodeRuntime } from "@effect/platform-node";
 import { DatabaseLive, PgClientLive } from "./db.ts";
 import { fetchNovel } from "./fetch.ts";
 
@@ -11,7 +11,6 @@ const program = Effect.gen(function* () {
 NodeRuntime.runMain(
   program
     .pipe(Effect.provide(BrowserLive))
-    .pipe(Effect.provide(NodeContext.layer))
     .pipe(Effect.provide(DatabaseLive))
     .pipe(Effect.provide(PgClientLive)),
 );

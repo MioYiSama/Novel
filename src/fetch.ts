@@ -176,7 +176,7 @@ export const fetchChapter = ({
           { concurrency: 1 },
         );
 
-        content.push(...Array.filterMap(contentElements, (x) => x));
+        content.push(...Array.getSomes(contentElements));
 
         const { url_next } = (yield* Effect.promise(() => page.evaluate("ReadParams"))) as {
           url_next: string; //"/novel/8/1847_2.html"
